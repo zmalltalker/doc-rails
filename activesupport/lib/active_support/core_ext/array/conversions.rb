@@ -44,7 +44,11 @@ module ActiveSupport #:nodoc:
             alias_method :to_s, :to_formatted_s
           end
         end
-
+        
+        # Converts a collection of elements into a formatted string by calling to_s on all elements and joining them.
+        # Blog.find(:all).to_formatted_s => "First PostSecond PostThird Post"
+        # Adding in the :db argument as the format yields a prettier output:
+        # Blog.find(:all).to_formatted_s(:db) => "First Post,Second Post,Third Post"
         def to_formatted_s(format = :default)
           case format
             when :db
@@ -57,7 +61,9 @@ module ActiveSupport #:nodoc:
               to_default_s
           end
         end
-
+        
+        # Returns an string containing the array in XML format
+        
         def to_xml(options = {})
           raise "Not all elements respond to to_xml" unless all? { |e| e.respond_to? :to_xml }
 

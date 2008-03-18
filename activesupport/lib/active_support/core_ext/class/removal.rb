@@ -1,8 +1,16 @@
 class Class #:nodoc:
+  
+  # Will unassociate the class with its subclasses as well as uninitializing the subclasses themselves.
+  # >> Integer.remove_subclasses
+  # => [Bignum, Fixnum]
+  # >> Fixnum
+  # NameError: uninitialized constant Fixnum
   def remove_subclasses
     Object.remove_subclasses_of(self)
   end
-
+  
+  # Returns a list of classes that inherit from this class in an array.
+  # Example: Integer.subclasses => ["Bignum", "Fixnum"]
   def subclasses
     Object.subclasses_of(self).map { |o| o.to_s }
   end
