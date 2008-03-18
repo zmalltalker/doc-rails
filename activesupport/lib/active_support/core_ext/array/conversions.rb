@@ -63,7 +63,6 @@ module ActiveSupport #:nodoc:
         end
         
         # Returns an string containing the array in XML format
-        
         def to_xml(options = {})
           raise "Not all elements respond to to_xml" unless all? { |e| e.respond_to? :to_xml }
 
