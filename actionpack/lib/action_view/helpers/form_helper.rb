@@ -405,7 +405,7 @@ module ActionView
       # ==== Examples 
       #   # Let's say that @post.validated? is 1:
       #   check_box("post", "validated")
-      #   # => <input type="checkbox" id="post_validate" name="post[validated]" value="1" checked="checked" />
+      #   # => <input type="checkbox" id="post_validated" name="post[validated]" value="1" checked="checked" />
       #   #    <input name="post[validated]" type="hidden" value="0" />
       #
       #   # Let's say that @puppy.gooddog is "no":
@@ -413,8 +413,8 @@ module ActionView
       #   # => <input type="checkbox" id="puppy_gooddog" name="puppy[gooddog]" value="yes" />
       #   #    <input name="puppy[gooddog]" type="hidden" value="no" />
       #
-      #   check_box("eula", "accepted", {}, "yes", "no", :class => 'eula_check')
-      #   # => <input type="checkbox" id="eula_accepted" name="eula[accepted]" value="no" />
+      #   check_box("eula", "accepted", { :class => 'eula_check' }, "yes", "no")
+      #   # => <input type="checkbox" id="eula_accepted" name="eula[accepted]" value="yes" />
       #   #    <input name="eula[accepted]" type="hidden" value="no" />
       #
       def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
@@ -430,13 +430,13 @@ module ActionView
       #   # Let's say that @post.category returns "rails":
       #   radio_button("post", "category", "rails")
       #   radio_button("post", "category", "java")
-      #   # => <input type="radio" id="post_category" name="post[category]" value="rails" checked="checked" />
-      #   #    <input type="radio" id="post_category" name="post[category]" value="java" />
+      #   # => <input type="radio" id="post_category_rails" name="post[category]" value="rails" checked="checked" />
+      #   #    <input type="radio" id="post_category_java" name="post[category]" value="java" />
       #
       #   radio_button("user", "receive_newsletter", "yes")
       #   radio_button("user", "receive_newsletter", "no")
-      #   # => <input type="radio" id="user_receive_newsletter" name="user[receive_newsletter]" value="yes" />
-      #   #    <input type="radio" id="user_receive_newsletter" name="user[receive_newsletter]" value="no" checked="checked" />
+      #   # => <input type="radio" id="user_receive_newsletter_yes" name="user[receive_newsletter]" value="yes" />
+      #   #    <input type="radio" id="user_receive_newsletter_no" name="user[receive_newsletter]" value="no" checked="checked" />
       def radio_button(object_name, method, tag_value, options = {})
         InstanceTag.new(object_name, method, self, nil, options.delete(:object)).to_radio_button_tag(tag_value, options)
       end
