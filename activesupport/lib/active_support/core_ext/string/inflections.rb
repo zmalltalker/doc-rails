@@ -65,7 +65,7 @@ module ActiveSupport #:nodoc:
         end
         alias_method :titlecase, :titleize
 
-        # The reverse of +camelize+. Makes an underscored form from the expression in the string.
+        # The reverse of +camelize+. Makes an underscored, lowercase form from the expression in the string.
         # 
         # Changes '::' to '/' to convert namespaces to paths.
         #
