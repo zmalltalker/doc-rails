@@ -23,30 +23,39 @@ class HashWithIndifferentAccess < Hash
   alias_method :regular_writer, :[]= unless method_defined?(:regular_writer)
   alias_method :regular_update, :update unless method_defined?(:regular_update)
 
+  # 
   # Assigns a new value to the hash.
   # 
   # Example:
   # 
   #   hash = HashWithIndifferentAccess.new
   #   hash[:key] = "value"
+  # 
   def []=(key, value)
     regular_writer(convert_key(key), convert_value(value))
   end
   
+  # 
   # Updates the instantized hash with values from the second.
   # 
   # Example:
   # 
-  #    >> hash_1 = HashWithIndifferentAccess.new
-  #    => {}
-  #    >> hash_1[:key] = "value"
-  #    => "value"
-  #    >> hash_2 = HashWithIndifferentAccess.new
-  #    => {}
-  #    >> hash_2[:key] = "New Value!"
-  #    => "New Value!"
-  #    >> hash_1.update(hash_2)
-  #    => {"key"=>"New Value!"}
+  #   >> hash_1 = HashWithIndifferentAccess.new
+  #   => {}
+  # 
+  #   >> hash_1[:key] = "value"
+  #   => "value"
+  # 
+  #   >> hash_2 = HashWithIndifferentAccess.new
+  #   => {}12:35:24 < Devastator> oh yeah
+
+  # 
+  #   >> hash_2[:key] = "New Value!"
+  #   => "New Value!"
+  # 
+  #   >> hash_1.update(hash_2)
+  #   => {"key"=>"New Value!"}
+  # 
   def update(other_hash)
     other_hash.each_pair { |key, value| regular_writer(convert_key(key), convert_value(value)) }
     self
@@ -99,20 +108,21 @@ class HashWithIndifferentAccess < Hash
   end
 
   protected
-  def convert_key(key)
-    key.kind_of?(Symbol) ? key.to_s : key
-  end
-
-  def convert_value(value)
-    case value
-    when Hash
-      value.with_indifferent_access
-    when Array
-      value.collect { |e| e.is_a?(Hash) ? e.with_indifferent_access : e }
-    else
-      value
+  
+    def convert_key(key)
+      key.kind_of?(Symbol) ? key.to_s : key
     end
-  end
+
+    def convert_value(value)
+      case value
+      when Hash
+        value.with_indifferent_access
+      when Array
+        value.collect { |e| e.is_a?(Hash) ? e.with_indifferent_access : e }
+      else
+        value
+      end
+    end
 end
 
 module ActiveSupport #:nodoc:
