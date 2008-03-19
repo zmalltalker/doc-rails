@@ -7,7 +7,8 @@ module ActiveRecord
         @finder_sql = construct_conditions
         construct_sql
       end
-
+      
+      # Performs a find on the association. Works just like ActiveRecord::Base#find, but uses the scope of the association.
       def find(*args)
         options = args.extract_options!
 

@@ -5,7 +5,7 @@ module ActiveRecord
         super
         construct_sql
       end
-
+      # Instantizes a collection of records for this association. If passed an array of attributes it will build a collection of records.
       def build(attributes = {})
         if attributes.is_a?(Array)
           attributes.collect { |attr| build(attr) }
@@ -30,7 +30,8 @@ module ActiveRecord
           @reflection.klass.count(column_name, options)
         end
       end
-
+      
+      # Performs a find on the association. Works just like ActiveRecord::Base#find, but uses the scope of the association.
       def find(*args)
         options = args.extract_options!
 

@@ -47,7 +47,8 @@ class HashWithIndifferentAccess < Hash
   #   => "value"
   # 
   #   >> hash_2 = HashWithIndifferentAccess.new
-  #   => {}
+  #   => {}12:35:24 < Devastator> oh yeah
+
   # 
   #   >> hash_2[:key] = "New Value!"
   #   => "New Value!"
@@ -107,6 +108,7 @@ class HashWithIndifferentAccess < Hash
   end
 
   protected
+  
     def convert_key(key)
       key.kind_of?(Symbol) ? key.to_s : key
     end
