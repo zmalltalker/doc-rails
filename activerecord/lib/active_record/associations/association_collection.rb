@@ -81,6 +81,7 @@ module ActiveRecord
         self
       end
       
+      # Destroys all records in this association. Calls destroy on each record.
       def destroy_all
         @owner.transaction do
           each { |record| record.destroy }
@@ -89,6 +90,7 @@ module ActiveRecord
         reset_target!
       end
       
+      # Creates records in the association. Pass it a single hash for a single record, or a group of hashes in an array for multiple records.
       def create(attrs = {})
         if attrs.is_a?(Array)
           attrs.collect { |attr| create(attr) }
@@ -96,7 +98,9 @@ module ActiveRecord
           create_record(attrs) { |record| record.save }
         end
       end
-
+      
+      # Creates records in the association. Pass it a single hash for a single record, or a group of hashes in an array for multiple records.
+      # Will raise either an ActiveRecord::RecordNotSaved or ActiveRecord::RecordInvalid exception of any of the records are unsaveable or invalid.
       def create!(attrs = {})
         create_record(attrs) { |record| record.save! }
       end
@@ -120,11 +124,13 @@ module ActiveRecord
       def length
         load_target.size
       end
-
+      
+      # Checks to see if the association has no records in it. Returns true/false.
       def empty?
         size.zero?
       end
 
+      # Checks to see if any records from the association match the arguments passed in to the block.
       def any?
         if block_given?
           method_missing(:any?) { |*block_args| yield(*block_args) }
@@ -132,7 +138,8 @@ module ActiveRecord
           !empty?
         end
       end
-
+      
+      # Returns all unique records from an association. 
       def uniq(collection = self)
         seen = Set.new
         collection.inject([]) do |kept, record|

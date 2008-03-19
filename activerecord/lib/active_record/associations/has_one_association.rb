@@ -5,19 +5,23 @@ module ActiveRecord
         super
         construct_sql
       end
-
+      
+      # Creates the associated record.
       def create(attrs = {}, replace_existing = true)
         new_record(replace_existing) { |klass| klass.create(attrs) }
       end
-
+      
+      # Creates the associated record. Will raise either ActiveRecord::RecordNotSaved or ActiveRecord::RecordInvalid if the record cannot be created.
       def create!(attrs = {}, replace_existing = true)
         new_record(replace_existing) { |klass| klass.create!(attrs) }
       end
-
+      
+      # Initializes a new record.
       def build(attrs = {}, replace_existing = true)
         new_record(replace_existing) { |klass| klass.new(attrs) }
       end
-
+      
+      # Replaces the current record with another.
       def replace(obj, dont_save = false)
         load_target
 

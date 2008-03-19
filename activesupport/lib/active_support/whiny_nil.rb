@@ -17,7 +17,8 @@ class NilClass
     class_name = klass.name
     methods.each { |method| @@method_class_map[method.to_sym] = class_name }
   end
-
+  
+  # Raises a RuntimeError when you attempt to call id on nil or a nil object.
   def id
     raise RuntimeError, "Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id", caller
   end
@@ -26,7 +27,8 @@ class NilClass
     def method_missing(method, *args, &block)
       raise_nil_warning_for @@method_class_map[method], method, caller
     end
-
+    
+    # Raises a NoMethodError when you attempt to call a method on nil, or a nil object.
     def raise_nil_warning_for(class_name = nil, selector = nil, with_caller = nil)
       message = "You have a nil object when you didn't expect it!"
       message << "\nYou might have expected an instance of #{class_name}." if class_name

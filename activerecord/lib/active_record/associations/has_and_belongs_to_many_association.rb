@@ -5,24 +5,27 @@ module ActiveRecord
         super
         construct_sql
       end
-
+      # Instantizes a new record for the association.
       def build(attributes = {})
         load_target
         build_record(attributes)
       end
-
+      # Creates a new record for the association.
       def create(attributes = {})
         create_record(attributes) { |record| insert_record(record) }
       end
 
+      # Creates a new record for the association.
       def create!(attributes = {})
         create_record(attributes) { |record| insert_record(record, true) }
       end
-
+      
+      # Will find the first record in the association.
       def find_first
         load_target.first
       end
-
+      
+      # Performs a find on the associated records.
       def find(*args)
         options = args.extract_options!
 
