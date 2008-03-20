@@ -405,7 +405,7 @@ module ActionView
       # ==== Examples 
       #   # Let's say that @post.validated? is 1:
       #   check_box("post", "validated")
-      #   # => <input type="checkbox" id="post_validated" name="post[validated]" value="1" checked="checked" />
+      #   # => <input type="checkbox" id="post_validated" name="post[validated]" value="1" />
       #   #    <input name="post[validated]" type="hidden" value="0" />
       #
       #   # Let's say that @puppy.gooddog is "no":
@@ -414,7 +414,7 @@ module ActionView
       #   #    <input name="puppy[gooddog]" type="hidden" value="no" />
       #
       #   check_box("eula", "accepted", { :class => 'eula_check' }, "yes", "no")
-      #   # => <input type="checkbox" id="eula_accepted" name="eula[accepted]" value="yes" />
+      #   # => <input type="checkbox" class="eula_check" id="eula_accepted" name="eula[accepted]" value="yes" />
       #   #    <input name="eula[accepted]" type="hidden" value="no" />
       #
       def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
