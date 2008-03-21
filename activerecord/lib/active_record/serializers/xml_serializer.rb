@@ -68,6 +68,36 @@ module ActiveRecord #:nodoc:
     #     </account>
     #   </firm>
     #
+    # To include deeper levels of associations pass a hash like this:
+    #
+    #   firm.to_xml :include => {:account => {}, :clients => {:include => :address}}
+    #   <?xml version="1.0" encoding="UTF-8"?>
+    #   <firm>
+    #     <id type="integer">1</id>
+    #     <rating type="integer">1</rating>
+    #     <name>37signals</name>
+    #     <clients type="array">
+    #       <client>
+    #         <rating type="integer">1</rating>
+    #         <name>Summit</name>
+    #         <address>
+    #           ...
+    #         </address>
+    #       </client>
+    #       <client>
+    #         <rating type="integer">1</rating>
+    #         <name>Microsoft</name>
+    #         <address>
+    #           ...
+    #         </address>
+    #       </client>
+    #     </clients>
+    #     <account>
+    #       <id type="integer">1</id>
+    #       <credit-limit type="integer">50</credit-limit>
+    #     </account>
+    #   </firm>
+    #
     # To include any methods on the object(s) being called use :methods
     #
     #   firm.to_xml :methods => [ :calculated_earnings, :real_earnings ]
