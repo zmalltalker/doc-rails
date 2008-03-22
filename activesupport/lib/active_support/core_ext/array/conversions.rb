@@ -46,10 +46,15 @@ module ActiveSupport #:nodoc:
           end
         end
         
-        # Converts a collection of elements into a formatted string by calling to_s on all elements and joining them.
-        # Blog.find(:all).to_formatted_s => "First PostSecond PostThird Post"
-        # Adding in the :db argument as the format yields a prettier output:
-        # Blog.find(:all).to_formatted_s(:db) => "First Post,Second Post,Third Post"
+        # Converts a collection of elements into a formatted string by calling
+        # <tt>to_s</tt> on all elements and joining them:
+        #
+        #   Blog.find(:all).to_formatted_s # => "First PostSecond PostThird Post"
+        #
+        # Adding in the <tt>:db</tt> argument as the format yields a prettier
+        # output:
+        #
+        #   Blog.find(:all).to_formatted_s(:db) # => "First Post,Second Post,Third Post"
         def to_formatted_s(format = :default)
           case format
             when :db
