@@ -33,8 +33,9 @@ module ActiveSupport #:nodoc:
         # Converts an array into a string suitable for use as a URL query string, using the given <tt>key</tt> as the
         # param name.
         #
-        # ==== Example:
-        #   ['Rails', 'coding'].to_query('hobbies') => "hobbies%5B%5D=Rails&hobbies%5B%5D=coding"
+        # Example:
+        #
+        #   ['Rails', 'coding'].to_query('hobbies') # => "hobbies%5B%5D=Rails&hobbies%5B%5D=coding"
         def to_query(key)
           collect { |value| value.to_query("#{key}[]") } * '&'
         end
