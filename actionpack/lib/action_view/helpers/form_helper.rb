@@ -76,6 +76,7 @@ module ActionView
       # values for the fields.
       #
       #   <% form_for :person, @person, :url => { :action => "update" } do |f| %>
+      #     <%= f.error_messages %>
       #     First name: <%= f.text_field :first_name %>
       #     Last name : <%= f.text_field :last_name %>
       #     Biography : <%= f.text_area :biography %>
@@ -85,7 +86,8 @@ module ActionView
       # Worth noting is that the form_for tag is called in a ERb evaluation block, not an ERb output block. So that's <tt><% %></tt>,
       # not <tt><%= %></tt>. Also worth noting is that form_for yields a <tt>form_builder</tt> object, in this example as <tt>f</tt>, which emulates
       # the API for the stand-alone FormHelper methods, but without the object name. So instead of <tt>text_field :person, :name</tt>,
-      # you get away with <tt>f.text_field :name</tt>.
+      # you get away with <tt>f.text_field :name</tt>. Notice that you can even do <tt><%= f.error_messages %></tt> to display the
+      # error messsages of the model object in question.
       #
       # Even further, the form_for method allows you to more easily escape the instance variable convention. So while the stand-alone
       # approach would require <tt>text_field :person, :name, :object => person</tt>
