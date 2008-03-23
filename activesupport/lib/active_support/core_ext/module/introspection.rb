@@ -7,14 +7,13 @@ class Module
   #   end
   #   X = M::N
   #   
-  #   p M.parent    # => Object
   #   p M::N.parent # => M
   #   p X.parent    # => M
   #
   # The parent of top-level and anonymous modules is Object.
   #
-  #   String.parent     # => Object
-  #   Module.new.parent # => Object
+  #   p M.parent          # => Object
+  #   p Module.new.parent # => Object
   #
   def parent
     parent_name = name.split('::')[0..-2] * '::'
