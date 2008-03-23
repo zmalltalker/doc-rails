@@ -1,6 +1,5 @@
 class Module
-  # Returns the module which contains this one according to its name. If this is
-  # a root module, such as ::MyModule, then Object is returned.
+  # Returns the module which contains this one according to its name.
   #
   #   module M
   #     module N
@@ -11,6 +10,11 @@ class Module
   #   p M.parent    # => Object
   #   p M::N.parent # => M
   #   p X.parent    # => M
+  #
+  # The parent of top-level and anonymous modules is Object.
+  #
+  #   String.parent     # => Object
+  #   Module.new.parent # => Object
   #
   def parent
     parent_name = name.split('::')[0..-2] * '::'
