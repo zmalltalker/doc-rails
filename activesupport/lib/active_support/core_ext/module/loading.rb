@@ -5,7 +5,7 @@ class Module
   #   ActiveRecord::Associations.as_load_path # => "active_record/associations"
   #   ActiveRecord::Base.as_load_path         # => "active_record" (Base is a class)
   #
-  # The Kernel module gives the empty string by definition.
+  # The Kernel module gives an empty string by definition.
   #
   #   Kernel.as_load_path # => ""
   #   Math.as_load_path   # => "math"
