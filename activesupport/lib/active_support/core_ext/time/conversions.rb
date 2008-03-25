@@ -20,7 +20,7 @@ module ActiveSupport #:nodoc:
           end
         end
 
-        # Convert to a formatted string. See Time::DATE_FORMATS for builtin formats.
+        # Converts to a formatted string. See Time::DATE_FORMATS for builtin formats.
         #
         # This method is aliased to <tt>to_s</tt>.
         #
@@ -51,7 +51,7 @@ module ActiveSupport #:nodoc:
           formatter.respond_to?(:call) ? formatter.call(self).to_s : strftime(formatter)
         end
         
-        # Returns the utc_offset as an +HH:MM formatted string. Examples:
+        # Returns the utc_offset as an +HH:MM formatted string.
         #
         #   Time.local(2000).formatted_offset         # => "-06:00"
         #   Time.local(2000).formatted_offset(false)  # => "-0600"
@@ -59,7 +59,7 @@ module ActiveSupport #:nodoc:
           utc? && alternate_utc_string || utc_offset.to_utc_offset_s(colon)
         end
 
-        # Convert a Time object to a Date, dropping hour, minute, and second precision.
+        # Converts a Time object to a Date, dropping hour, minute, and second precision.
         #
         # ==== Examples
         #   my_time = Time.now
