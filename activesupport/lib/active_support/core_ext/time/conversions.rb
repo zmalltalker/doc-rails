@@ -20,11 +20,12 @@ module ActiveSupport #:nodoc:
           end
         end
 
-        # Convert to a formatted string. See DATE_FORMATS for builtin formats.
+        # Convert to a formatted string. See Time::DATE_FORMATS for builtin formats.
         #
         # This method is aliased to <tt>to_s</tt>.
         #
-        # ==== Examples:
+        # ==== Examples
+        #
         #   time = Time.now                     # => Thu Jan 18 06:10:17 CST 2007
         #
         #   time.to_formatted_s(:time)          # => "06:10:17"
@@ -36,7 +37,8 @@ module ActiveSupport #:nodoc:
         #   time.to_formatted_s(:long_ordinal)  # => "January 18th, 2007 06:10"
         #   time.to_formatted_s(:rfc822)        # => "Thu, 18 Jan 2007 06:10:17 -0600"
         #
-        # == Adding your own time formats to to_formatted_s
+        # == Adding your own time formats to <tt>to_formatted_s</tt>
+        #
         # You can add your own formats to the Time::DATE_FORMATS hash.
         # Use the format name as the hash key and either a strftime string
         # or Proc instance that takes a time argument as the value.
