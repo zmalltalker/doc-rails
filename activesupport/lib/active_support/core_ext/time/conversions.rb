@@ -81,17 +81,12 @@ module ActiveSupport #:nodoc:
         # Converts a Time instance to a Ruby DateTime instance, preserving UTC offset.
         #
         # ==== Examples
-        #   my_time = Time.now
-        #   # => Mon Nov 12 23:04:21 -0500 2007
         #
-        #   my_time.to_datetime
-        #   # => Mon, 12 Nov 2007 23:04:21 -0500
+        #   my_time = Time.now  # => Mon Nov 12 23:04:21 -0500 2007
+        #   my_time.to_datetime # => Mon, 12 Nov 2007 23:04:21 -0500
         #
-        #   your_time = Time.parse("1/13/2009 1:13:03 P.M.")
-        #   # => Tue Jan 13 13:13:03 -0500 2009
-        #
-        #   your_time.to_datetime
-        #   # => Tue, 13 Jan 2009 13:13:03 -0500
+        #   your_time = Time.parse("1/13/2009 1:13:03 P.M.") # => Tue Jan 13 13:13:03 -0500 2009
+        #   your_time.to_datetime                            # => Tue, 13 Jan 2009 13:13:03 -0500
         def to_datetime
           ::DateTime.civil(year, month, day, hour, min, sec, Rational(utc_offset, 86400))
         end
