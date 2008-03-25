@@ -27,7 +27,8 @@ module ActiveSupport #:nodoc:
             Thread.current[:time_zone] = get_zone(time_zone)
           end
           
-          # Allows override of Time.zone locally inside supplied block; resets Time.zone to existing value when done
+          # Allows override of Time.zone locally inside supplied block; resets
+          # Time.zone to existing value when done.
           def use_zone(time_zone)
             old_zone, ::Time.zone = ::Time.zone, get_zone(time_zone)
             yield
