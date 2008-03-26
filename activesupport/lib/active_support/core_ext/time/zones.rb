@@ -17,9 +17,10 @@ module ActiveSupport #:nodoc:
 
           # Sets a global default time zone, separate from the system time zone in ENV['TZ']. 
           # Accepts either a Rails TimeZone object, a string that identifies a 
-          # Rails TimeZone object (e.g., "Central Time (US & Canada)"), or a TZInfo::Timezone object.
+          # Rails TimeZone object (e.g., "Central Time (US & Canada)"), or a TZInfo::Timezone object
           #
-          # Any Time or DateTime object can use this default time zone, via <tt>in_time_zone</tt>.
+          # Any Time or DateTime object can use this default time zone, via #in_time_zone.
+          # Example:
           #
           #   Time.zone = 'Hawaii'          # => 'Hawaii'
           #   Time.utc(2000).in_time_zone   # => Fri, 31 Dec 1999 14:00:00 HST -10:00
@@ -27,8 +28,7 @@ module ActiveSupport #:nodoc:
             Thread.current[:time_zone] = get_zone(time_zone)
           end
           
-          # Allows override of Time.zone locally inside supplied block; resets
-          # Time.zone to existing value when done.
+          # Allows override of Time.zone locally inside supplied block; resets Time.zone to existing value when done
           def use_zone(time_zone)
             old_zone, ::Time.zone = ::Time.zone, get_zone(time_zone)
             yield

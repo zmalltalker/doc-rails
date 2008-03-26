@@ -227,7 +227,7 @@ module ActionController
     #
     #   <% form_for :message, @message, :url => message_path(@message), :html => {:method => :put} do |f| %>
     #
-    # Starting with Rails 2.0 you can just write
+    # or
     #
     #   <% form_for @message do |f| %>
     #

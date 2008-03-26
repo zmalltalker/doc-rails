@@ -7,8 +7,7 @@ module ActiveRecord
         @finder_sql = construct_conditions
         construct_sql
       end
-      
-      # Performs a find on the association. Works just like ActiveRecord::Base#find, but uses the scope of the association.
+
       def find(*args)
         options = args.extract_options!
 
@@ -140,8 +139,10 @@ module ActiveRecord
             else
               super
             end
+          elsif @reflection.klass.scopes.include?(method)
+            @reflection.klass.scopes[method].call(self, *args)
           else
-            @reflection.klass.send(:with_scope, construct_scope) do
+            with_scope construct_scope do
               if block_given?
                 @reflection.klass.send(method, *args) { |*block_args| yield(*block_args) }
               else
