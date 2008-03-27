@@ -1,8 +1,6 @@
 module ActiveRecord
   module Associations
     class BelongsToPolymorphicAssociation < AssociationProxy #:nodoc:
-      
-      # Replaces the currently associated record with another.
       def replace(record)
         if record.nil?
           @target = @owner[@reflection.primary_key_name] = @owner[@reflection.options[:foreign_type]] = nil

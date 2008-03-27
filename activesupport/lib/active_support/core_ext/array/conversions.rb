@@ -46,7 +46,7 @@ module ActiveSupport #:nodoc:
             alias_method :to_s, :to_formatted_s
           end
         end
-        
+
         # Converts a collection of elements into a formatted string by calling
         # <tt>to_s</tt> on all elements and joining them:
         #
@@ -68,7 +68,7 @@ module ActiveSupport #:nodoc:
               to_default_s
           end
         end
-        
+
         # Returns a string that represents this array in XML by sending
         # <tt>to_xml</tt> to each element.
         #

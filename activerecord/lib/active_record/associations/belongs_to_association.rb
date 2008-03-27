@@ -1,18 +1,14 @@
 module ActiveRecord
   module Associations
     class BelongsToAssociation < AssociationProxy #:nodoc:
-      
-      # Creates the associated record.
       def create(attributes = {})
         replace(@reflection.klass.create(attributes))
       end
-      
-      # Initializes the associated record.
+
       def build(attributes = {})
         replace(@reflection.klass.new(attributes))
       end
-      
-      # Replaces the currently associated record with another.
+
       def replace(record)
         counter_cache_name = @reflection.counter_cache_column
 

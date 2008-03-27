@@ -11,7 +11,7 @@ class HashWithIndifferentAccess < Hash
       super(constructor)
     end
   end
-  
+
   def default(key = nil)
     if key.is_a?(Symbol) && include?(key = key.to_s)
       self[key]
@@ -23,18 +23,18 @@ class HashWithIndifferentAccess < Hash
   alias_method :regular_writer, :[]= unless method_defined?(:regular_writer)
   alias_method :regular_update, :update unless method_defined?(:regular_update)
 
-  # 
+  #
   # Assigns a new value to the hash.
-  # 
+  #
   # Example:
-  # 
+  #
   #   hash = HashWithIndifferentAccess.new
   #   hash[:key] = "value"
-  # 
+  #
   def []=(key, value)
     regular_writer(convert_key(key), convert_value(value))
   end
-  
+
   # 
   # Updates the instantized hash with values from the second.
   # 
@@ -47,8 +47,7 @@ class HashWithIndifferentAccess < Hash
   #   => "value"
   # 
   #   >> hash_2 = HashWithIndifferentAccess.new
-  #   => {}12:35:24 < Devastator> oh yeah
-
+  #   => {}
   # 
   #   >> hash_2[:key] = "New Value!"
   #   => "New Value!"
@@ -71,28 +70,28 @@ class HashWithIndifferentAccess < Hash
   alias_method :include?, :key?
   alias_method :has_key?, :key?
   alias_method :member?, :key?
-  
+
   # Fetches the value for the specified key, same as doing hash[key]
   def fetch(key, *extras)
     super(convert_key(key), *extras)
   end
-  
+
   # Returns an array of the values at the specified indicies. 
   def values_at(*indices)
     indices.collect {|key| self[convert_key(key)]}
   end
-  
+
   # Returns an exact copy of the hash.
   def dup
     HashWithIndifferentAccess.new(self)
   end
-  
+
   # Merges the instantized and the specified hashes together, giving precedence to the values from the second hash
   # Does not overwrite the existing hash.
   def merge(hash)
     self.dup.update(hash)
   end
-  
+
   # Removes a specified key from the hash.
   def delete(key)
     super(convert_key(key))
@@ -108,7 +107,6 @@ class HashWithIndifferentAccess < Hash
   end
 
   protected
-  
     def convert_key(key)
       key.kind_of?(Symbol) ? key.to_s : key
     end
