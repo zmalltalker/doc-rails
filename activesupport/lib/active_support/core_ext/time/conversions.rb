@@ -48,7 +48,7 @@ module ActiveSupport #:nodoc:
           formatter.respond_to?(:call) ? formatter.call(self).to_s : strftime(formatter)
         end
         
-        # Returns the UTF offset as an +HH:MM formatted string.
+        # Returns the UTC offset as an +HH:MM formatted string.
         #
         #   Time.local(2000).formatted_offset         # => "-06:00"
         #   Time.local(2000).formatted_offset(false)  # => "-0600"
