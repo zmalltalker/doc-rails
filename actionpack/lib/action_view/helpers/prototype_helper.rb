@@ -735,7 +735,7 @@ module ActionView
           #   # Replace the HTML of the DOM element having ID 'person-45' with the
           #   # 'person' partial for the appropriate object.
           #   # Generates:  Element.update("person-45", "-- Contents of 'person' partial --");
-          #   replace_html 'person-45', :partial => 'person', :object => @person
+          #   page.replace_html 'person-45', :partial => 'person', :object => @person
           #
           def replace_html(id, *options_for_render)
             call 'Element.update', id, render(*options_for_render)
