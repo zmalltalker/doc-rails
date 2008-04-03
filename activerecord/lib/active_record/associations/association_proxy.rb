@@ -13,8 +13,8 @@ module ActiveRecord
     #       HasOneThroughAssociation
     #
     # Association proxies in Active Record are middlemen between the object that
-    # holds the association, known as the <i>@owner</i>, and the actual associated
-    # object, known as the <i>@target</i>. The kind of association any proxy is
+    # holds the association, known as the <tt>@owner</tt>, and the actual associated
+    # object, known as the <tt>@target</tt>. The kind of association any proxy is
     # about is available in <tt>@reflection</tt>. That's an instance of the class
     # ActiveRecord::Reflection::AssociationReflection.
     #
