@@ -77,13 +77,13 @@ module ActiveRecord
       end
 
       # Returns the name of the macro.  For example, <tt>composed_of :balance, :class_name => 'Money'</tt> will return
-      # +:balance+ or for <tt>has_many :clients</tt> it will return +:clients+.
+      # <tt>:balance</tt> or for <tt>has_many :clients</tt> it will return <tt>:clients</tt>.
       def name
         @name
       end
 
-      # Returns the macro type. For example, <tt>composed_of :balance, :class_name => 'Money'</tt> will return +:composed_of+
-      # or for <tt>has_many :clients</tt> will return +:has_many+.
+      # Returns the macro type. For example, <tt>composed_of :balance, :class_name => 'Money'</tt> will return <tt>:composed_of</tt>
+      # or for <tt>has_many :clients</tt> will return <tt>:has_many</tt>.
       def macro
         @macro
       end
