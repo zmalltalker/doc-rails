@@ -449,11 +449,12 @@ class HasOneAssociationsTest < ActiveRecord::TestCase
 
   def test_not_resaved_when_unchanged
     firm = Firm.find(:first, :include => :account)
+    firm.name += '-changed'
     assert_queries(1) { firm.save! }
 
     firm = Firm.find(:first)
     firm.account = Account.find(:first)
-    assert_queries(1) { firm.save! }
+    assert_queries(Firm.partial_updates? ? 0 : 1) { firm.save! }
 
     firm = Firm.find(:first).clone
     firm.account = Account.find(:first)
@@ -551,7 +552,8 @@ end
 
 class HasManyAssociationsTest < ActiveRecord::TestCase
   fixtures :accounts, :companies, :developers, :projects,
-           :developers_projects, :topics, :authors, :comments, :author_addresses
+           :developers_projects, :topics, :authors, :comments, :author_addresses,
+           :people, :posts
 
   def setup
     Client.destroyed_client_ids.clear
@@ -1318,12 +1320,51 @@ class HasManyAssociationsTest < ActiveRecord::TestCase
     assert_equal 4, authors(:david).limited_comments.find(:all, :conditions => "comments.type = 'SpecialComment'", :limit => 9_000).length
     assert_equal 4, authors(:david).limited_comments.find_all_by_type('SpecialComment', :limit => 9_000).length
   end
+  
+  def test_find_all_include_over_the_same_table_for_through
+    assert_equal 2, people(:michael).posts.find(:all, :include => :people).length
+  end
+
+  def test_has_many_through_respects_hash_conditions
+    assert_equal authors(:david).hello_posts, authors(:david).hello_posts_with_hash_conditions
+    assert_equal authors(:david).hello_post_comments, authors(:david).hello_post_comments_with_hash_conditions
+  end
+
+  def test_include_uses_array_include_after_loaded
+    firm = companies(:first_firm)
+    client = firm.clients.first
+
+    assert_no_queries do
+      assert firm.clients.loaded?
+      assert firm.clients.include?(client)
+    end
+  end
+
+  def test_include_checks_if_record_exists_if_target_not_loaded
+    firm = companies(:first_firm)
+    client = firm.clients.first
+
+    firm.reload
+    assert ! firm.clients.loaded?
+    assert_queries(1) do
+      assert firm.clients.include?(client)
+    end
+    assert ! firm.clients.loaded?
+  end
+
+  def test_include_returns_false_for_non_matching_record_to_verify_scoping
+    firm = companies(:first_firm)
+    client = Client.create!(:name => 'Not Associated')
+
+    assert ! firm.clients.loaded?
+    assert ! firm.clients.include?(client)
+  end
 
 end
 
 class BelongsToAssociationsTest < ActiveRecord::TestCase
   fixtures :accounts, :companies, :developers, :projects, :topics,
-           :developers_projects, :computers, :authors, :posts, :tags, :taggings
+           :developers_projects, :computers, :authors, :posts, :tags, :taggings, :comments
 
   def test_belongs_to
     Client.find(3).firm.name
@@ -2033,6 +2074,36 @@ class HasAndBelongsToManyAssociationsTest < ActiveRecord::TestCase
     active_record = projects(:active_record)
     active_record.developers.reload
     assert_equal developers(:david), active_record.developers.find(developers(:david).id), "Ruby find"
+  end
+
+  def test_include_uses_array_include_after_loaded
+    project = projects(:active_record)
+    developer = project.developers.first
+    
+    assert_no_queries do
+      assert project.developers.loaded?
+      assert project.developers.include?(developer)
+    end
+  end
+  
+  def test_include_checks_if_record_exists_if_target_not_loaded
+    project = projects(:active_record)
+    developer = project.developers.first
+
+    project.reload
+    assert ! project.developers.loaded?
+    assert_queries(1) do
+      assert project.developers.include?(developer)
+    end
+    assert ! project.developers.loaded?
+  end
+
+  def test_include_returns_false_for_non_matching_record_to_verify_scoping
+    project = projects(:active_record)
+    developer = Developer.create :name => "Bryan", :salary => 50_000
+
+    assert ! project.developers.loaded?
+    assert ! project.developers.include?(developer)
   end
 
   def test_find_in_association_with_custom_finder_sql

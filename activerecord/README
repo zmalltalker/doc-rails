@@ -104,7 +104,7 @@ A short rundown of the major features:
 
 * Transactions
 
-    # Just database transaction
+    # Database transaction
     Account.transaction do
       david.withdrawal(100)
       mary.deposit(100)

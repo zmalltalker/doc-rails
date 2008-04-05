@@ -843,7 +843,8 @@ module ActionView
           #  # Generates: window.location.href = "/account/signup";
           #  page.redirect_to(:controller => 'account', :action => 'signup')
           def redirect_to(location)
-            assign 'window.location.href', @context.url_for(location)
+            url = location.is_a?(String) ? location : @context.url_for(location)
+            record "window.location.href = #{url.inspect}"
           end
           
           # Calls the JavaScript +function+, optionally with the given +arguments+.
@@ -1204,7 +1205,7 @@ module ActionView
         append_enumerable_function!("zip(#{arguments_for_call arguments}")
         if block
           function_chain[-1] += ", function(array) {"
-          yield ActiveSupport::JSON::Variable.new('array')
+          yield ::ActiveSupport::JSON::Variable.new('array')
           add_return_statement!
           @generator << '});'
         else

@@ -435,7 +435,7 @@ module ActiveRecord #:nodoc:
     # adapters for, e.g., your development and test environments.
     cattr_accessor :schema_format , :instance_writer => false
     @@schema_format = :ruby
-
+    
     class << self # Class methods
       # Find operates with four different retrieval approaches:
       #
@@ -2412,8 +2412,8 @@ module ActiveRecord #:nodoc:
 
       # Updates the associated record with values matching those of the instance attributes.
       # Returns the number of affected rows.
-      def update
-        quoted_attributes = attributes_with_quotes(false, false)
+      def update(attribute_names = @attributes.keys)
+        quoted_attributes = attributes_with_quotes(false, false, attribute_names)
         return 0 if quoted_attributes.empty?
         connection.update(
           "UPDATE #{self.class.quoted_table_name} " +
@@ -2505,10 +2505,10 @@ module ActiveRecord #:nodoc:
 
       # Returns a copy of the attributes hash where all the values have been safely quoted for use in
       # an SQL statement.
-      def attributes_with_quotes(include_primary_key = true, include_readonly_attributes = true)
+      def attributes_with_quotes(include_primary_key = true, include_readonly_attributes = true, attribute_names = @attributes.keys)
         quoted = {}
         connection = self.class.connection
-        @attributes.each_pair do |name, value|
+        attribute_names.each do |name|
           if column = column_for_attribute(name)
             quoted[name] = connection.quote(read_attribute(name), column) unless !include_primary_key && column.primary
           end

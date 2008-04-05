@@ -41,6 +41,14 @@ class AssociationsJoinModelTest < ActiveRecord::TestCase
     assert_queries(1) { assert_equal 0, author.unique_categorized_posts.count(:title, :conditions => "title is NULL") }
     assert !authors(:mary).unique_categorized_posts.loaded?
   end
+  
+  def test_has_many_uniq_through_find
+    assert_equal 1, authors(:mary).unique_categorized_posts.find(:all).size
+  end
+  
+  def test_has_many_uniq_through_dynamic_find
+    assert_equal 1, authors(:mary).unique_categorized_posts.find_all_by_title("So I was thinking").size
+  end
 
   def test_polymorphic_has_many
     assert posts(:welcome).taggings.include?(taggings(:welcome_general))
@@ -631,7 +639,37 @@ class AssociationsJoinModelTest < ActiveRecord::TestCase
       assert_equal comments.first.post, comments[1].post
     end
   end
+
+  def test_has_many_through_include_uses_array_include_after_loaded
+    david = authors(:david)
+    category = david.categories.first
+
+    assert_no_queries do
+      assert david.categories.loaded?
+      assert david.categories.include?(category)
+    end
+  end
+
+  def test_has_many_through_include_checks_if_record_exists_if_target_not_loaded
+    david = authors(:david)
+    category = david.categories.first
+
+    david.reload
+    assert ! david.categories.loaded?
+    assert_queries(1) do
+      assert david.categories.include?(category)
+    end
+    assert ! david.categories.loaded?
+  end
   
+  def test_has_many_through_include_returns_false_for_non_matching_record_to_verify_scoping
+    david = authors(:david)
+    category = Category.create!(:name => 'Not Associated')
+
+    assert ! david.categories.loaded?
+    assert ! david.categories.include?(category)
+  end
+
   private
     # create dynamic Post models to allow different dependency options
     def find_post_with_dependency(post_id, association, association_name, dependency)
