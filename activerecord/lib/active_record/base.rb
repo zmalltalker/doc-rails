@@ -11,22 +11,18 @@ module ActiveRecord #:nodoc:
   class SubclassNotFound < ActiveRecordError #:nodoc:
   end
 
-  # Raised when object assigned to association is of incorrect type.
+  # Raised when an object assigned to an association has an incorrect type.
   #
-  # Example:
+  #   class Ticket < ActiveRecord::Base
+  #     has_many :patches
+  #   end
+  #   
+  #   class Patch < ActiveRecord::Base
+  #     belongs_to :ticket
+  #   end
   #
-  # class Ticket < ActiveRecord::Base
-  #   has_many :patches
-  # end
-  #
-  # class Patch < ActiveRecord::Base
-  #   belongs_to :ticket
-  # end
-  #
-  # and somewhere in the code:
-  #
-  # @ticket.patches << Comment.new(:content => "Please attach tests to your patch.")
-  # @ticket.save
+  #   # Comments are not patches, this assigment raises AssociationTypeMismatch.
+  #   @ticket.patches << Comment.new(:content => "Please attach tests to your patch.")
   class AssociationTypeMismatch < ActiveRecordError
   end
 
