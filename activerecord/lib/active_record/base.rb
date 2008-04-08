@@ -21,7 +21,7 @@ module ActiveRecord #:nodoc:
   #     belongs_to :ticket
   #   end
   #
-  #   # Comments are not patches, this assigment raises AssociationTypeMismatch.
+  #   # Comments are not patches, this assignment raises AssociationTypeMismatch.
   #   @ticket.patches << Comment.new(:content => "Please attach tests to your patch.")
   class AssociationTypeMismatch < ActiveRecordError
   end
