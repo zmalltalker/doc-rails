@@ -68,7 +68,8 @@ module ActiveSupport #:nodoc:
         end
 
         # Returns a string that represents this array in XML by sending
-        # <tt>to_xml</tt> to each element.
+        # <tt>to_xml</tt> to each element. ActiveRecord collections delegate
+        # their representation in XML to this method.
         #
         # All elements are expected to respond to <tt>to_xml</tt>, if any of
         # them does not an exception is raised.
