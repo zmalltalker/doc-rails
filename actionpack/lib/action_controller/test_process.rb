@@ -465,10 +465,13 @@ module ActionController #:nodoc:
       return super
     end
     
-    # Shortcut for ActionController::TestUploadedFile.new(Test::Unit::TestCase.fixture_path + path, type). Example:
+    # Shortcut for <tt>ActionController::TestUploadedFile.new(Test::Unit::TestCase.fixture_path + path, type)</tt>:
+    #
     #   post :change_avatar, :avatar => fixture_file_upload('/files/spongebob.png', 'image/png')
     #
-    # To upload binary files on Windows, pass :binary as the last parameter. This will not affect other platforms.
+    # To upload binary files on Windows, pass <tt>:binary</tt> as the last parameter.
+    # This will not affect other platforms:
+    #
     #   post :change_avatar, :avatar => fixture_file_upload('/files/spongebob.png', 'image/png', :binary)
     def fixture_file_upload(path, mime_type = nil, binary = false)
       ActionController::TestUploadedFile.new(
@@ -483,17 +486,17 @@ module ActionController #:nodoc:
     # with a new RouteSet instance. 
     #
     # The new instance is yielded to the passed block. Typically the block
-    # will create some routes using map.draw { map.connect ... }:
+    # will create some routes using <tt>map.draw { map.connect ... }</tt>:
     #
-    #  with_routing do |set|
-    #    set.draw do |map|
-    #      map.connect ':controller/:action/:id'
-    #        assert_equal(
-    #          ['/content/10/show', {}],
-    #          map.generate(:controller => 'content', :id => 10, :action => 'show')
-    #      end
-    #    end
-    #  end
+    #   with_routing do |set|
+    #     set.draw do |map|
+    #       map.connect ':controller/:action/:id'
+    #         assert_equal(
+    #           ['/content/10/show', {}],
+    #           map.generate(:controller => 'content', :id => 10, :action => 'show')
+    #       end
+    #     end
+    #   end
     #
     def with_routing
       real_routes = ActionController::Routing::Routes
