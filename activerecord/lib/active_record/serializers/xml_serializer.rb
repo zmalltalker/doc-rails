@@ -109,7 +109,7 @@ module ActiveRecord #:nodoc:
     #   </firm>
     #
     # To call any additional Procs use <tt>:procs</tt>. The Procs are passed a
-    # modified version of the options hash that was given to +to_xml+.
+    # modified version of the options hash that was given to +to_xml+:
     #
     #   proc = Proc.new { |options| options[:builder].tag!('abc', 'def') }
     #   firm.to_xml :procs => [ proc ]
