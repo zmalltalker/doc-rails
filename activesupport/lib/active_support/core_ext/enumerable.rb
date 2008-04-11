@@ -5,7 +5,7 @@ module Enumerable
   # Example:
   #
   #   latest_transcripts.group_by(&:day).each do |day, transcripts| 
-  #     p "#{day} -> #{transcripts.map(&:class) * ', '}"
+  #     p "#{day} -> #{transcripts.map(&:class).join(', ')}"
   #   end
   #   "2006-03-01 -> Transcript"
   #   "2006-02-28 -> Transcript"
